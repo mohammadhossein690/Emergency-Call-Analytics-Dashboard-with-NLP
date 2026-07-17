@@ -24,7 +24,6 @@ Interactive analysis of emergency call trends, distributions, geographic hotspot
 ![Dashboard Overview](./image/dashboard_overview.PNG)
 
 
-
 ### 📊 Emergency Reason Distribution
 Analysis of emergency categories and their distribution across the dataset.
 
