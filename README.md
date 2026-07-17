@@ -6,7 +6,7 @@ An interactive **Streamlit dashboard** for analyzing 911 emergency calls and pre
 [911 Calls Analytics & Prediction App](https://emergency-call-analytics-dashboard-with-nlp-o7c7sfhuxq7khf7e3j.streamlit.app/)
 
 
-## Features
+## 📌 Features
 
 - 📊 Emergency call EDA and visualization
 - 🌎 Geographic hotspot analysis
@@ -14,28 +14,78 @@ An interactive **Streamlit dashboard** for analyzing 911 emergency calls and pre
 - 🤖 NLP text classification model
 - 🔮 Live emergency reason prediction
 
-## Machine Learning
+---
 
-**Model:** Multinomial Naive Bayes  
-**Features:** CountVectorizer + Text Preprocessing
+## 📸 Dashboard Preview
 
-**Classes:**
+### 📊 Exploratory Data Analysis
+Interactive analysis of emergency call trends, distributions, geographic hotspots, and time-based patterns.
 
-- EMS
-- Fire
-- Traffic
+![Dashboard Overview](./image/dashboard_overview.png)
 
-**Performance:**
 
-- Accuracy: 93.10%
 
-## Tech Stack
+### 📊 Emergency Reason Distribution
+Analysis of emergency categories and their distribution across the dataset.
+
+![Reason Distribution](./image/reason_distribution.png)
+
+
+### 🔥 Temporal Pattern Heatmap
+Heatmap visualization showing emergency call patterns across different time periods.
+
+![Heatmap](./image/heatmap.png)
+
+
+### 🤖 NLP Prediction Model
+Real-time prediction system that classifies emergency calls into EMS, Fire, and Traffic categories.
+
+![Live Prediction](./image/live_prediction.png)
+
+
+### 📈 Model Evaluation
+Performance analysis using classification report and confusion matrix.
+
+![Model Evaluation](./image/model_evaluation.png)
+
+---
+
+## 🤖 Machine Learning
+
+**Model:** Multinomial Naive Bayes
+
+**Pipeline:**
+
+- Text Cleaning
+- Stopword Removal
+- Stemming
+- CountVectorizer Feature Extraction
+- Multinomial Naive Bayes Classification
+
+
+### Classes
+
+- 🚑 EMS
+- 🔥 Fire
+- 🚗 Traffic
+
+
+### Performance
+
+- Accuracy: **93.10%**
+- Weighted F1-score: **93%**
+
+---
+
+## 🛠 Tech Stack
 
 Python • Streamlit • Pandas • Plotly • Scikit-learn • NLTK
 
-## Run
+
+---
+
+## ▶️ Run Locally
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
-```
