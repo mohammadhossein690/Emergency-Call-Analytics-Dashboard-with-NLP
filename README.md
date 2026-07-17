@@ -21,7 +21,7 @@ An interactive **Streamlit dashboard** for analyzing 911 emergency calls and pre
 ### 📊 Exploratory Data Analysis
 Interactive analysis of emergency call trends, distributions, geographic hotspots, and time-based patterns.
 
-![Dashboard Overview](./image/dashboard_overview.png)
+![Dashboard Overview](./image/dashboard_overview.PNG)
 
 
 
