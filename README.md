@@ -28,25 +28,25 @@ Interactive analysis of emergency call trends, distributions, geographic hotspot
 ### 📊 Emergency Reason Distribution
 Analysis of emergency categories and their distribution across the dataset.
 
-![Reason Distribution](./image/reason_distribution.png)
+![Reason Distribution](./image/reason_distribution.PNG)
 
 
 ### 🔥 Temporal Pattern Heatmap
 Heatmap visualization showing emergency call patterns across different time periods.
 
-![Heatmap](./image/heatmap.png)
+![Heatmap](./image/heatmap_analysis.PNG)
 
 
 ### 🤖 NLP Prediction Model
 Real-time prediction system that classifies emergency calls into EMS, Fire, and Traffic categories.
 
-![Live Prediction](./image/live_prediction.png)
+![Live Prediction](./image/live_prediction.PNG)
 
 
 ### 📈 Model Evaluation
 Performance analysis using classification report and confusion matrix.
 
-![Model Evaluation](./image/model_evaluation.png)
+![Model Evaluation](./image/model_evaluation.PNG)
 
 ---
 
