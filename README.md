@@ -35,8 +35,3 @@ Python • Streamlit • Pandas • Plotly • Scikit-learn • NLTK
 pip install -r requirements.txt
 streamlit run app.py
 ```
-
-## Author
-
-Mohammad Hossein  
-GitHub: https://github.com/mohammadhossein690
