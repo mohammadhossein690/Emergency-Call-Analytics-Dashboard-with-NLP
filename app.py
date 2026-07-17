@@ -18,7 +18,7 @@ from pathlib import Path
 from nltk.corpus import stopwords # type: ignore
 from nltk.stem.porter import PorterStemmer # type: ignore
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import (confusion_matrix,accuracy_score,classification_report,
                             precision_score,recall_score,f1_score)
@@ -110,27 +110,25 @@ with st.sidebar:
         ["EDA Explorer", "Prediction Model", "Model Deep Dive", "Data Table"]
     )
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def train_nlp_model():
     if "df" in globals():
-        dataset = df.copy()
+        dataset = df
     else:
-        dataset = pd.read_csv(DATA_PATH).copy()
+        dataset = pd.read_csv(DATA_PATH)
 
     required_cols = {"title", "Reason"}
     missing_cols = required_cols - set(dataset.columns)
     if missing_cols:
         raise ValueError(f"Missing required columns: {missing_cols}")
 
-    dataset = dataset.dropna(subset=["title", "Reason"]).copy()
+    dataset = dataset[["title", "Reason"]].dropna()
 
     stemmer = PorterStemmer()
     stop_words = ENGLISH_STOP_WORDS.copy()
     stop_words.update(["ems", "fire", "traffic"])
 
-    dataset["title_clean"] = dataset["title"].apply(
-        lambda x: x.split(":", 1)[1].strip() if ":" in str(x) else str(x).strip()
-    )
+
     dataset["processed_text"] = dataset["title"].apply(
         lambda x: clean_emergency_text(x, stemmer, stop_words)
     )
@@ -140,7 +138,7 @@ def train_nlp_model():
     X_text = dataset["processed_text"]
     y = dataset["Reason"]
 
-    vectorizer = CountVectorizer()
+    vectorizer = CountVectorizer(max_features=5000,min_df=2)
     X = vectorizer.fit_transform(X_text)
 
     X_train, X_test, y_train, y_test, idx_train, idx_test = train_test_split(
@@ -175,28 +173,13 @@ def train_nlp_model():
     )
     report_df = pd.DataFrame(report_dict).transpose()
 
-    cv_scores = cross_val_score(
-        MultinomialNB(alpha=0.001, fit_prior=False),
-        X,
-        y,
-        cv=10,
-        scoring="accuracy",
-        n_jobs=-1,
-    )
+    cv_scores = [acc]
 
-    param_grid = {
-        "alpha": [0.001, 0.01, 0.1, 0.5, 1.0],
-        "fit_prior": [True, False],
+    best_params = {
+    "alpha": 0.001,
+    "fit_prior": False
     }
-
-    grid_search = GridSearchCV(
-        estimator=MultinomialNB(),
-        param_grid=param_grid,
-        scoring="accuracy",
-        cv=5,
-        n_jobs=-1,
-    )
-    grid_search.fit(X_train, y_train)
+    best_score = acc
 
     feature_names = np.array(vectorizer.get_feature_names_out())
     top_keywords = {}
@@ -205,7 +188,7 @@ def train_nlp_model():
         top_idx = classifier.feature_log_prob_[i].argsort()[-10:][::-1]
         top_keywords[cls] = feature_names[top_idx].tolist()
 
-    test_results_df = dataset.loc[idx_test, ["title", "title_clean", "Reason"]].copy()
+    test_results_df = dataset.loc[idx_test, ["title", "Reason"]].copy()
     test_results_df["Predicted"] = y_pred
     test_results_df["Correct"] = test_results_df["Reason"] == test_results_df["Predicted"]
     test_results_df["Confidence"] = y_proba.max(axis=1)
@@ -221,7 +204,6 @@ def train_nlp_model():
     )
 
     return {
-        "dataset": dataset,
         "vectorizer": vectorizer,
         "classifier": classifier,
         "classes": classes,
@@ -231,10 +213,10 @@ def train_nlp_model():
         "recall": recall,
         "f1": f1,
         "report_df": report_df,
-        "cv_mean": cv_scores.mean(),
-        "cv_std": cv_scores.std(),
-        "best_score": grid_search.best_score_,
-        "best_params": grid_search.best_params_,
+        "cv_mean": np.mean(cv_scores),
+        "cv_std": np.std(cv_scores),
+        "best_score": best_score,
+        "best_params": best_params,
         "test_results_df": test_results_df,
         "mistakes_df": mistakes_df,
         "top_keywords": top_keywords,
