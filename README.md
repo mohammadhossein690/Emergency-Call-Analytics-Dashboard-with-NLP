@@ -2,6 +2,10 @@
 
 An interactive **Streamlit dashboard** for analyzing 911 emergency calls and predicting emergency categories using **Natural Language Processing**.
 
+🔗 **Live Demo:**  
+[YOUR_STREAMLIT_LINK](https://emergency-call-analytics-dashboard-with-nlp-o7c7sfhuxq7khf7e3j.streamlit.app/)
+
+
 ## Features
 
 - 📊 Emergency call EDA and visualization
