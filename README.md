@@ -8,11 +8,11 @@ An interactive **Streamlit dashboard** for analyzing 911 emergency calls and pre
 
 ## 📌 Features
 
-- 📊 Emergency call EDA and visualization
-- 🌎 Geographic hotspot analysis
-- ⏰ Time-based pattern analysis
-- 🤖 NLP text classification model
-- 🔮 Live emergency reason prediction
+-  Emergency call EDA and visualization
+-  Geographic hotspot analysis
+-  Time-based pattern analysis
+-  NLP text classification model
+-  Live emergency reason prediction
 
 ---
 
